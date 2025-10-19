@@ -7,7 +7,7 @@ gpu:
   visible_devices: "0"
   memory_fraction: 0.8
   enable_mixed_precision: true
-  enable_compilation: true
+  enable_compilation: false  # Disabled - adds 1-2s overhead for single queries
 
 # Embedding Configuration  
 embedding:

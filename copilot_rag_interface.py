@@ -20,62 +20,98 @@ class CopilotRAGInterface:
     """Simple interface for Copilot to query Chromium knowledge."""
     
     def __init__(self):
-        # Initialize embedding generator first
-        self.embedding_generator = EmbeddingGenerator(
-            model_name='BAAI/bge-large-en-v1.5',
-            batch_size=32
-        )
-        
-        # Initialize vector database (it uses pre-computed embeddings)
-        self.vector_db = VectorDatabase(collection_name="chromium_complete")
-        
-        # Initialize retriever
-        self.retriever = AdvancedRetriever(
-            vector_db=self.vector_db,
-            embedding_generator=self.embedding_generator
-        )
+        # Lazy initialization - only load when needed
+        self._embedding_generator = None
+        self._vector_db = None
+        self._retriever = None
         self.results_file = Path("copilot_rag_results.md")
+    
+    @property
+    def embedding_generator(self):
+        """Lazy load embedding generator."""
+        if self._embedding_generator is None:
+            print("🔄 Loading embedding model (one-time initialization)...")
+            self._embedding_generator = EmbeddingGenerator(
+                model_name='BAAI/bge-large-en-v1.5',
+                batch_size=64  # Larger batch for efficiency
+            )
+        return self._embedding_generator
+    
+    @property
+    def vector_db(self):
+        """Lazy load vector database."""
+        if self._vector_db is None:
+            print("🔄 Connecting to vector database...")
+            self._vector_db = VectorDatabase(collection_name="chromium_complete")
+        return self._vector_db
+    
+    @property
+    def retriever(self):
+        """Lazy load retriever."""
+        if self._retriever is None:
+            self._retriever = AdvancedRetriever(
+                vector_db=self.vector_db,
+                embedding_generator=self.embedding_generator
+            )
+        return self._retriever
     
     def query(self, question: str, top_k: int = 5) -> str:
         """Query the RAG system and return formatted results."""
         
         print(f"\n🔍 Querying Chromium RAG: {question}")
+        print("⏱️  Generating query embedding...")
         
-        # Retrieve relevant documents (use semantic to avoid embedding function issues)
+        # Fast retrieval without expensive reranking or multi-stage
+        import time
+        start = time.time()
+        
         results = self.retriever.retrieve(
             query=question,
             n_results=top_k,
-            retrieval_strategy="semantic",
-            use_reranking=False
+            retrieval_strategy="semantic",  # Fastest strategy
+            use_reranking=False  # Skip expensive reranking
         )
+        
+        elapsed = time.time() - start
+        print(f"✅ Retrieved {len(results)} results in {elapsed:.2f}s")
         
         if not results:
             return "No relevant results found."
         
-        # Format results
-        formatted_output = f"# Chromium RAG Query Results\n\n"
-        formatted_output += f"**Query:** {question}\n\n"
-        formatted_output += f"**Found:** {len(results)} relevant commits\n\n"
-        formatted_output += "---\n\n"
+        # Format results efficiently using list comprehension
+        print("📝 Formatting results...")
         
+        # Build header
+        parts = [
+            f"# Chromium RAG Query Results\n\n",
+            f"**Query:** {question}\n\n",
+            f"**Found:** {len(results)} relevant commits in {elapsed:.2f}s\n\n",
+            "---\n\n"
+        ]
+        
+        # Build results
         for idx, result in enumerate(results, 1):
             doc = result.search_result.document
             metadata = doc.metadata or {}
-            formatted_output += f"## Result {idx}\n\n"
-            formatted_output += f"**Commit:** `{metadata.get('commit_sha', 'unknown')[:8]}`\n"
-            formatted_output += f"**Author:** {metadata.get('author_name', 'unknown')}\n"
-            formatted_output += f"**Date:** {metadata.get('commit_date', 'unknown')}\n"
-            formatted_output += f"**Relevance Score:** {result.retrieval_score:.3f}\n\n"
-            formatted_output += f"**Message:**\n```\n{metadata.get('commit_message', 'N/A')[:200]}\n```\n\n"
-            formatted_output += f"**Content:**\n```\n{doc.content[:500]}...\n```\n\n"
             
-            if result.explanation:
-                formatted_output += f"**Why this result:**\n"
-                for exp in result.explanation:
-                    formatted_output += f"- {exp}\n"
-                formatted_output += "\n"
+            parts.append(f"## Result {idx}\n\n")
+            parts.append(f"**Commit:** `{metadata.get('commit_sha', 'unknown')[:8]}`\n")
+            parts.append(f"**Author:** {metadata.get('author_name', 'unknown')}\n")
+            parts.append(f"**Date:** {metadata.get('commit_date', 'unknown')}\n")
+            parts.append(f"**Relevance Score:** {result.retrieval_score:.3f}\n\n")
             
-            formatted_output += "---\n\n"
+            # Only include message if available and non-empty
+            msg = metadata.get('commit_message', '')
+            if msg:
+                parts.append(f"**Message:**\n```\n{msg[:200]}\n```\n\n")
+            
+            # Content preview
+            parts.append(f"**Content:**\n```\n{doc.content[:500]}...\n```\n\n")
+            
+            # Skip explanations for faster formatting
+            parts.append("---\n\n")
+        
+        formatted_output = ''.join(parts)
         
         # Save to file for Copilot to read
         with open(self.results_file, 'w', encoding='utf-8') as f:
@@ -90,8 +126,12 @@ class CopilotRAGInterface:
         """Generate a complete answer using RAG."""
         
         print(f"\n🤖 Generating answer for: {question}")
+        print("⏱️  Searching database...")
         
-        # Retrieve context (use semantic to avoid embedding function issues)
+        import time
+        start = time.time()
+        
+        # Fast retrieval
         results = self.retriever.retrieve(
             query=question,
             n_results=top_k,
@@ -99,29 +139,37 @@ class CopilotRAGInterface:
             use_reranking=False
         )
         
+        elapsed = time.time() - start
+        print(f"✅ Found {len(results)} results in {elapsed:.2f}s")
+        
         if not results:
             return "No relevant information found."
         
-        # Format output (we don't have a generator, so just show the sources)
-        formatted_output = f"# Chromium RAG Answer\n\n"
-        formatted_output += f"**Question:** {question}\n\n"
-        formatted_output += f"**Summary:** Based on {len(results)} relevant commits from Chromium:\n\n"
+        # Format efficiently
+        parts = [
+            f"# Chromium RAG Answer\n\n",
+            f"**Question:** {question}\n\n",
+            f"**Summary:** Based on {len(results)} relevant commits from Chromium (found in {elapsed:.2f}s):\n\n"
+        ]
         
-        # Simple summary from top results
+        # Top 3 content previews
         for idx, result in enumerate(results[:3], 1):
             doc = result.search_result.document
-            metadata = doc.metadata or {}
-            formatted_output += f"{idx}. {doc.content[:200]}...\n\n"
+            parts.append(f"{idx}. {doc.content[:200]}...\n\n")
         
-        formatted_output += "---\n\n"
-        formatted_output += f"## Sources ({len(results)} commits)\n\n"
+        parts.append("---\n\n")
+        parts.append(f"## Sources ({len(results)} commits)\n\n")
         
+        # Compact source list
         for idx, result in enumerate(results, 1):
             doc = result.search_result.document
             metadata = doc.metadata or {}
-            formatted_output += f"{idx}. Commit `{metadata.get('commit_sha', 'unknown')[:8]}` "
-            formatted_output += f"by {metadata.get('author_name', 'unknown')} "
-            formatted_output += f"({metadata.get('commit_date', 'unknown')[:10]})\n"
+            sha = metadata.get('commit_sha', 'unknown')[:8]
+            author = metadata.get('author_name', 'unknown')
+            date = metadata.get('commit_date', 'unknown')[:10]
+            parts.append(f"{idx}. Commit `{sha}` by {author} ({date})\n")
+        
+        formatted_output = ''.join(parts)
         
         # Save for Copilot
         with open(self.results_file, 'w', encoding='utf-8') as f:
@@ -146,17 +194,15 @@ def main():
     
     question = " ".join(sys.argv[1:])
     
+    print("\n📚 Chromium RAG Interface for GitHub Copilot\n")
+    
+    # Create interface (lazy loaded, so fast)
     interface = CopilotRAGInterface()
     
-    # Choose mode
-    print("\n📚 Chromium RAG Interface for GitHub Copilot\n")
-    print("1. Quick search (retrieve relevant commits)")
-    print("2. Generate answer (AI-powered response)")
-    
-    mode = input("\nChoose mode (1 or 2, default=1): ").strip() or "1"
-    
-    if mode == "2":
-        result = interface.generate_answer(question)
+    # Default to quick search (mode 1) - no interactive prompt for speed
+    # Use mode=2 explicitly if needed: add --answer flag
+    if "--answer" in sys.argv:
+        result = interface.generate_answer(question.replace("--answer", "").strip())
     else:
         result = interface.query(question)
     

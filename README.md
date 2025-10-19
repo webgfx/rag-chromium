@@ -156,17 +156,40 @@ rag-chromium/
 - **[COPILOT_INTEGRATION.md](COPILOT_INTEGRATION.md)**: How to use with GitHub Copilot
 - **[RESUME_GUIDE.md](RESUME_GUIDE.md)**: Resume functionality and troubleshooting
 
-## 🤝 GitHub Copilot Integration
+## 🤝 GitHub Copilot Integration (Automatic!)
 
-Query the RAG system and save results for Copilot to read:
+### Quick Start - 3 Ways to Use:
 
+#### Method 1: One-Command Auto-Integration (Easiest!)
+```bash
+# Automatically query RAG and get Copilot prompt ready
+python rag_copilot_auto.py "memory management in Chrome"
+
+# Then paste the generated prompt into Copilot Chat
+# (It's copied to your clipboard automatically!)
+```
+
+#### Method 2: VS Code Task (Keyboard Shortcut)
+1. Press `Ctrl+Shift+R` (or use Tasks menu)
+2. Enter your question
+3. Results open automatically
+4. Ask Copilot: `@workspace Read copilot_rag_results.md and explain`
+
+#### Method 3: Direct Query
 ```bash
 # Query and save results
 python copilot_rag_interface.py "memory management in Chrome"
 
-# Then in VS Code, ask Copilot:
+# Then in Copilot Chat:
 # "@workspace Read copilot_rag_results.md and explain the memory management patterns"
 ```
+
+### 🎯 Automatic Context Loading
+
+Copilot is configured to automatically use RAG results! Just:
+1. Run a query (any method above)
+2. Ask Copilot about your topic
+3. Copilot will use `copilot_rag_results.md` as context
 
 See [COPILOT_INTEGRATION.md](COPILOT_INTEGRATION.md) for detailed workflows.
 

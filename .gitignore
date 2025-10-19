@@ -30,7 +30,6 @@ env/
 .venv
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
@@ -62,7 +61,10 @@ models/
 # Test outputs
 test_results/
 search_results_*.json
+
+# Copilot integration outputs
 copilot_rag_results.md
+COPILOT_PROMPT.txt
 
 # Temporary files
 *.tmp

@@ -1,0 +1,22 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
+    
+    // GitHub Copilot Chat Context
+    "github.copilot.chat.codeGeneration.instructions": [
+        {
+            "text": "When answering questions about Chromium, Chrome, or browser internals, first run: python copilot_rag_interface.py \"<query>\" to search 150K+ real Chromium commits, then read copilot_rag_results.md for accurate context before answering."
+        }
+    ],
+    
+    // Copilot will automatically use workspace files as context
+    "github.copilot.chat.contextFiles": [
+        "copilot_rag_results.md"
+    ],
+    
+    // Quick tasks for RAG queries (use Ctrl+Shift+P -> Tasks: Run Task)
+    "files.associations": {
+        "copilot_rag_results.md": "markdown",
+        ".github-copilot-instructions.md": "markdown"
+    }
+}

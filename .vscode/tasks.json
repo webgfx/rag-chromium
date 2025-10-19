@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "RAG: Query Chromium",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "copilot_rag_interface.py",
+        "${input:queryText}"
+      ],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": false,
+        "clear": true
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
+    },
+    {
+      "label": "RAG: Query and Open Results",
+      "type": "shell",
+      "command": "python copilot_rag_interface.py \"${input:queryText}\" && code copilot_rag_results.md",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "RAG: Interactive Query",
+      "type": "shell",
+      "command": "python",
+      "args": ["interactive_rag.py"],
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      }
+    },
+    {
+      "label": "RAG: Monitor Ingestion",
+      "type": "shell",
+      "command": "streamlit",
+      "args": ["run", "ingestion_monitor.py"],
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "queryText",
+      "type": "promptString",
+      "description": "Enter your Chromium query",
+      "default": "How does Chrome handle memory leaks?"
+    }
+  ]
+}

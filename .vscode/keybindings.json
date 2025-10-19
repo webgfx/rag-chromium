@@ -1,0 +1,23 @@
+[
+    {
+        "key": "ctrl+shift+r",
+        "command": "workbench.action.tasks.runTask",
+        "args": "RAG: Query and Open Results",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+i",
+        "command": "workbench.action.tasks.runTask",
+        "args": "RAG: Interactive Query"
+    },
+    {
+        "key": "ctrl+shift+m",
+        "command": "workbench.action.tasks.runTask",
+        "args": "RAG: Monitor Ingestion"
+    },
+    {
+        "key": "alt+r",
+        "command": "workbench.action.openRecent",
+        "args": "copilot_rag_results.md"
+    }
+]
