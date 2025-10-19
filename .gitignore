@@ -1,0 +1,85 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Data directories
+data/cache/
+data/embeddings/
+data/processed/
+data/vectorstore/
+data/massive_cache/
+
+# Model cache (Hugging Face)
+models/
+.cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Test outputs
+test_results/
+search_results_*.json
+copilot_rag_results.md
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+temp/
+tmp/
+
+# OS specific
+Thumbs.db
+.DS_Store
+
+# ChromaDB
+chroma.sqlite3
+chroma.sqlite3-shm
+chroma.sqlite3-wal
+
+# Backup files
+*.backup
+backup_*.json

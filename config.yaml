@@ -1,0 +1,49 @@
+
+# Chromium RAG System Configuration
+
+# GPU Configuration
+gpu:
+  device: "cuda"
+  visible_devices: "0"
+  memory_fraction: 0.8
+  enable_mixed_precision: true
+  enable_compilation: true
+
+# Embedding Configuration  
+embedding:
+  model_name: "BAAI/bge-m3"
+  device: "cuda"
+  batch_size: 64
+  max_length: 8192
+  pooling_method: "cls"
+  normalize: true
+
+# Data Configuration
+data:
+  chromium_repo_path: "d:\r\cr\src"
+  cache_dir: "./data/cache"
+  embeddings_dir: "./data/embeddings"
+  max_chunk_size: 2048
+  chunk_overlap: 256
+
+# Vector Database Configuration
+vector_db:
+  backend: "chromadb"
+  host: "localhost"
+  port: 8000
+  collection_name: "chromium_rag"
+  embedding_dimension: 1024
+  similarity_metric: "cosine"
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+
+# Monitoring Configuration
+monitoring:
+  wandb_project: "chromium-rag"
+  enable_monitoring: true
+  log_level: "INFO"
+  log_dir: "./logs"

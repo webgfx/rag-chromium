@@ -1,0 +1,99 @@
+# Core ML and GPU packages
+torch>=2.1.0
+torchvision>=0.16.0
+torchaudio>=2.1.0
+--index-url https://download.pytorch.org/whl/cu121
+
+# Transformer models and embeddings  
+transformers>=4.35.0
+sentence-transformers>=2.2.2
+accelerate>=0.24.0
+optimum>=1.14.0
+bitsandbytes>=0.41.3
+
+# Vector databases and search
+chromadb>=0.4.15
+qdrant-client>=1.6.4
+weaviate-client>=3.25.0
+faiss-gpu>=1.7.4
+pinecone-client>=2.2.4
+
+# RAG frameworks and LLM tools
+langchain>=0.0.350
+langchain-community>=0.0.3
+langchain-experimental>=0.0.45
+llama-index>=0.9.15
+haystack-ai>=2.0.0
+
+# LLM inference optimization
+vllm>=0.2.5
+text-generation-inference>=1.4.0
+ctransformers>=0.2.27
+
+# Data processing and analysis
+pandas>=2.1.3
+numpy>=1.25.2
+scipy>=1.11.4
+scikit-learn>=1.3.2
+datasets>=2.14.6
+pyarrow>=14.0.1
+
+# Git and version control processing
+GitPython>=3.1.40
+dulwich>=0.21.6
+pygit2>=1.13.2
+
+# Code analysis and parsing
+tree-sitter>=0.20.4
+tree-sitter-python>=0.20.4
+tree-sitter-cpp>=0.20.0
+tree-sitter-javascript>=0.20.1
+libcst>=1.1.0
+ast2json>=0.3.0
+
+# Text processing and NLP
+spacy>=3.7.2
+nltk>=3.8.1
+tokenizers>=0.14.1
+rapidfuzz>=3.5.2
+rank-bm25>=0.2.2
+
+# Web interface and API
+fastapi>=0.104.1
+uvicorn>=0.24.0
+streamlit>=1.28.2
+gradio>=3.50.2
+requests>=2.31.0
+
+# Monitoring and logging
+wandb>=0.16.0
+mlflow>=2.8.1
+tensorboard>=2.15.1
+prometheus-client>=0.19.0
+
+# Database and storage
+sqlalchemy>=2.0.23
+redis>=5.0.1
+psycopg2-binary>=2.9.9
+elasticsearch>=8.11.0
+
+# Configuration and utilities
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+click>=8.1.7
+tqdm>=4.66.1
+colorlog>=6.8.0
+rich>=13.7.0
+
+# Development and testing
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
+black>=23.11.0
+isort>=5.12.0
+flake8>=6.1.0
+mypy>=1.7.1
+
+# Jupyter and notebooks
+jupyter>=1.0.0
+ipykernel>=6.26.0
+ipywidgets>=8.1.1
