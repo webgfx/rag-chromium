@@ -1,0 +1,33 @@
+# Minimal requirements for Chromium RAG Server
+# Compatible with Python 3.13
+
+# Core ML and GPU
+torch>=2.1.0
+
+# Embedding models
+sentence-transformers>=2.2.2
+transformers>=4.35.0
+tokenizers>=0.14.1
+
+# Vector database
+qdrant-client>=1.6.4
+
+# Server
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+websockets>=12.0
+
+# Data processing
+pandas>=2.1.3
+numpy>=1.25.2
+
+# Git processing
+GitPython>=3.1.40
+
+# Utilities
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+tqdm>=4.66.1
+colorlog>=6.8.0
+rich>=13.7.0
+pyyaml>=6.0.1

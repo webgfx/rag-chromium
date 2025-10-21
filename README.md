@@ -184,42 +184,74 @@ rag-chromium/
 - **[COPILOT_INTEGRATION.md](COPILOT_INTEGRATION.md)**: How to use with GitHub Copilot
 - **[RESUME_GUIDE.md](RESUME_GUIDE.md)**: Resume functionality and troubleshooting
 
-## 🤝 GitHub Copilot Integration (Automatic!)
+## 🤝 GitHub Copilot Integration with MCP
 
-### Quick Start - 3 Ways to Use:
+### 🎯 Native Copilot Integration (Recommended!)
 
-#### Method 1: One-Command Auto-Integration (Easiest!)
-```bash
-# Automatically query RAG and get Copilot prompt ready
-python rag_copilot_auto.py "memory management in Chrome"
+The easiest way to use this RAG system is through the **MCP (Model Context Protocol)** server, which integrates directly into GitHub Copilot.
 
-# Then paste the generated prompt into Copilot Chat
-# (It's copied to your clipboard automatically!)
+**Quick Setup (2 minutes):**
+
+1. **Configure VS Code** - Add to your `settings.json`:
+```json
+{
+  "github.copilot.chat.mcp.servers": {
+    "chromium-rag": {
+      "command": "python",
+      "args": ["E:\\rag-chromium\\dist\\chromium-rag-mcp.py"],
+      "env": {}
+    }
+  }
+}
 ```
 
-#### Method 2: VS Code Task (Keyboard Shortcut)
-1. Press `Ctrl+Shift+R` (or use Tasks menu)
-2. Enter your question
-3. Results open automatically
-4. Ask Copilot: `@workspace Read copilot_rag_results.md and explain`
+2. **Restart VS Code**
 
-#### Method 3: Direct Query
+3. **Start asking questions:**
+```
+@chromium-rag How does V8 handle garbage collection?
+@chromium-rag Explain Chrome's security sandbox
+@chromium-rag Show me WebGL rendering implementation
+```
+
+📖 **See [`dist/QUICK_START.md`](dist/QUICK_START.md) for complete setup instructions!**
+
+### Alternative Methods
+
+#### Method 1: Direct CLI Query
 ```bash
-# Query and save results
+# Query and save results to copilot_rag_results.md
 python copilot_rag_interface.py "memory management in Chrome"
 
-# Then in Copilot Chat:
-# "@workspace Read copilot_rag_results.md and explain the memory management patterns"
+# Then ask Copilot:
+# "@workspace Read copilot_rag_results.md and explain"
 ```
 
-### 🎯 Automatic Context Loading
+#### Method 2: Interactive Mode
+```bash
+python interactive_rag.py
+# Ask questions interactively
+```
 
-Copilot is configured to automatically use RAG results! Just:
-1. Run a query (any method above)
-2. Ask Copilot about your topic
-3. Copilot will use `copilot_rag_results.md` as context
+### 📦 Distribution Package
 
-See [COPILOT_INTEGRATION.md](COPILOT_INTEGRATION.md) for detailed workflows.
+Everything you need for Copilot integration is in the **`/dist`** folder:
+
+```
+dist/
+├── chromium-rag-mcp.py          # MCP server
+├── QUICK_START.md               # 2-minute setup guide
+├── README.md                     # Detailed documentation
+├── install.bat                   # Windows installer
+├── test_mcp.py                   # Verification script
+└── vscode-settings-example.json # Settings template
+```
+
+**Test the server:**
+```bash
+cd dist
+python test_mcp.py
+```
 
 ## 🔍 Usage Examples
 

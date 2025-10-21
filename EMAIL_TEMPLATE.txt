@@ -1,0 +1,59 @@
+Subject: 🚀 Chromium RAG Available - Search Chromium Commits in Copilot!
+
+Hi Team,
+
+I've set up a Chromium RAG server that lets you search through 244,403 Chromium commits directly in GitHub Copilot! 
+
+🎯 What You Can Do:
+- Ask questions about Chromium architecture in natural language
+- Search for specific commits, features, or changes
+- Get instant answers about V8, Blink, rendering, etc.
+- All from within GitHub Copilot Chat!
+
+⚡ Quick Setup (5 minutes):
+
+1. Install Python package:
+   pip install websockets
+
+2. Download client file:
+   I'll share chromium-rag-client.py with you
+   Save it to: C:\Users\YOUR_USERNAME\
+
+3. Add to VS Code settings.json (Ctrl+, then click {} icon):
+   {
+     "github.copilot.chat.mcp.servers": {
+       "chromium-rag": {
+         "command": "python",
+         "args": [
+           "C:\\Users\\YOUR_USERNAME\\chromium-rag-client.py",
+           "--server", "ws://10.172.20.59:8080",
+           "--api-key", "JIn7DPXGnAckD_VESLuorrT3ehHEMiNrzg17G0GCZHk"
+         ]
+       }
+     }
+   }
+   
+   (Replace YOUR_USERNAME with your Windows username!)
+
+4. Restart VS Code
+
+5. Try it out:
+   @chromium-rag How does the V8 garbage collector work?
+   @chromium-rag Show me commits about rendering optimization
+
+📁 Files Attached:
+- chromium-rag-client.py (lightweight client)
+- USER_SETUP_GUIDE.md (detailed setup instructions)
+
+🆘 Troubleshooting:
+- Full guide: See USER_SETUP_GUIDE.md
+- Server status: http://10.172.20.59:8080/health
+- Questions: Reply to this email
+
+Happy searching! 🎉
+
+---
+Server Info:
+- URL: ws://10.172.20.59:8080
+- API Key: JIn7DPXGnAckD_VESLuorrT3ehHEMiNrzg17G0GCZHk
+- Status: http://10.172.20.59:8080/health

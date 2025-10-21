@@ -52,6 +52,10 @@ class EmbeddingGenerator:
         # Set batch size
         self.batch_size = batch_size or self._auto_detect_batch_size()
         
+        # Query embedding cache for fast repeated queries
+        self.query_cache = {}  # Separate cache for query embeddings
+        self.max_query_cache_size = 1000  # Keep last 1000 queries
+        
         # Cache for embeddings
         self.embedding_cache = {}
         self.cache_file = Path(self.config.data.embeddings_dir) / f"{model_name}_embeddings.json"
@@ -66,17 +70,17 @@ class EmbeddingGenerator:
         if torch.cuda.is_available():
             gpu_memory = torch.cuda.get_device_properties(0).total_memory / 1024**3  # GB
             
-            # Rough heuristic based on GPU memory
+            # Aggressive batch sizes for high-end GPUs (RTX 5080 has 16GB)
             if gpu_memory >= 24:  # RTX 4090, RTX 5080, etc.
-                return 128
-            elif gpu_memory >= 16:  # RTX 4080, etc.
-                return 96
+                return 256  # 2x larger for better GPU utilization
+            elif gpu_memory >= 16:  # RTX 4080, RTX 5080 16GB, etc.
+                return 192  # 2x larger
             elif gpu_memory >= 12:  # RTX 4070 Ti, etc.
-                return 64
+                return 128
             elif gpu_memory >= 8:   # RTX 4060 Ti, etc.
-                return 32
+                return 64
             else:
-                return 16
+                return 32
         else:
             return 8  # Conservative for CPU
     
@@ -85,6 +89,17 @@ class EmbeddingGenerator:
         if self.model is None:
             self.model = self.model_manager.load_model(self.model_name)
             self.model_config = self.model_manager.model_configs[self.model_name]
+            
+            # Enable FP16 inference for 2x speedup on RTX GPUs
+            if torch.cuda.is_available() and hasattr(self.model, 'half'):
+                try:
+                    # For sentence transformers, convert the underlying model
+                    if hasattr(self.model, '_first_module'):
+                        self.model = self.model.half()
+                        self.logger.info(f"Enabled FP16 inference for {self.model_name}")
+                except Exception as e:
+                    self.logger.warning(f"Could not enable FP16: {e}")
+            
             self.logger.info(f"Loaded embedding model: {self.model_name}")
     
     def _load_cache(self) -> None:
@@ -127,15 +142,17 @@ class EmbeddingGenerator:
         self,
         texts: List[str],
         show_progress: bool = True,
-        normalize: bool = None
+        normalize: bool = None,
+        use_cache: bool = True
     ) -> np.ndarray:
         """
-        Encode a list of texts into embeddings.
+        Encode a list of texts into embeddings with caching.
         
         Args:
             texts: List of texts to encode
             show_progress: Whether to show progress bar
             normalize: Whether to normalize embeddings (uses model default if None)
+            use_cache: Whether to use query cache (for repeated queries)
         
         Returns:
             Array of embeddings
@@ -144,6 +161,13 @@ class EmbeddingGenerator:
             return np.array([])
         
         self._load_model()
+        
+        # Check query cache first for single-text queries (typical for search)
+        if use_cache and len(texts) == 1:
+            cache_key = self._get_cache_key(texts[0])
+            if cache_key in self.query_cache:
+                self.logger.debug("Query cache hit")
+                return np.array([self.query_cache[cache_key]])
         
         # Check cache for existing embeddings
         cached_embeddings = {}
@@ -200,7 +224,21 @@ class EmbeddingGenerator:
         if self.cache_embeddings and new_embeddings:
             self._save_cache()
         
-        return np.array(all_embeddings)
+        result = np.array(all_embeddings)
+        
+        # Cache single query for fast repeated access
+        if use_cache and len(texts) == 1:
+            cache_key = self._get_cache_key(texts[0])
+            self.query_cache[cache_key] = result[0]
+            
+            # Evict oldest if cache is full
+            if len(self.query_cache) > self.max_query_cache_size:
+                # Remove 10% oldest entries
+                keys_to_remove = list(self.query_cache.keys())[:100]
+                for key in keys_to_remove:
+                    del self.query_cache[key]
+        
+        return result
     
     def _encode_sentence_transformer(
         self,

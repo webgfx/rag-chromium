@@ -86,3 +86,6 @@ chroma.sqlite3-wal
 # Backup files
 *.backup
 backup_*.json
+
+# Deployment packages (too large for git)
+deployment/
