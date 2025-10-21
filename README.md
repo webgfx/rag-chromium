@@ -83,12 +83,34 @@ streamlit run ingestion_monitor.py
 ### 3. Verify System Status
 
 ```bash
+# Verify database health and consistency
+python verify_database.py
+
+# Rebuild status.json from database (if corrupted)
+python rebuild_status.py
+
 # Check database and resume status
 python verify_resume.py
 
 # Quick status overview
 python quick_resume.py
 ```
+
+### 4. Database Recovery (Important!)
+
+If `status.json` is corrupted or lost, you can always rebuild it from the database:
+
+```bash
+# The database is the source of truth
+python rebuild_status.py
+
+# This scans all documents in Qdrant and reconstructs:
+# - All processed commit ranges
+# - Accurate document counts
+# - Complete timeline of what's been processed
+```
+
+See [DATABASE_RECOVERY.md](DATABASE_RECOVERY.md) for detailed recovery procedures.
 
 ## 📁 Project Structure
 
@@ -114,11 +136,15 @@ rag-chromium/
 ├── interactive_rag.py       # Interactive query interface
 ├── copilot_rag_interface.py # GitHub Copilot integration
 ├── ingestion_monitor.py     # Streamlit monitoring dashboard
+├── verify_database.py       # Database verification tool
+├── rebuild_status.py        # Status reconstruction from database
 ├── verify_resume.py         # Resume verification tool
 ├── quick_resume.py          # Quick status display
 ├── README.md                # This file
 ├── COMPLETE_INGESTION_GUIDE.md  # Detailed ingestion guide
 ├── COPILOT_INTEGRATION.md   # Copilot integration guide
+├── UNIFIED_STATUS_ARCHITECTURE.md  # Status file architecture
+├── DATABASE_RECOVERY.md     # Database scanning and recovery guide
 ├── RESUME_GUIDE.md          # Resume functionality guide
 └── requirements.txt         # Python dependencies
 ```
@@ -153,6 +179,8 @@ rag-chromium/
 ## 📚 Documentation
 
 - **[COMPLETE_INGESTION_GUIDE.md](COMPLETE_INGESTION_GUIDE.md)**: Full guide to ingesting Chromium data
+- **[UNIFIED_STATUS_ARCHITECTURE.md](UNIFIED_STATUS_ARCHITECTURE.md)**: Status file architecture and real-time updates
+- **[DATABASE_RECOVERY.md](DATABASE_RECOVERY.md)**: Database scanning, verification, and status reconstruction
 - **[COPILOT_INTEGRATION.md](COPILOT_INTEGRATION.md)**: How to use with GitHub Copilot
 - **[RESUME_GUIDE.md](RESUME_GUIDE.md)**: Resume functionality and troubleshooting
 
@@ -238,9 +266,17 @@ Edit `config.yaml` to customize:
 
 **Slow Ingestion**: Check GPU utilization, adjust `--max-workers`
 
+**Status File Corrupted**: Run `python rebuild_status.py` to reconstruct from database
+
+**Database Mismatch**: Run `python verify_database.py` to check consistency
+
 **Resume Issues**: Run `python verify_resume.py` to check status
 
 **Query Errors**: Ensure collection name matches: `chromium_complete`
+
+**System Crash Recovery**: Run `python rebuild_status.py` to recover state from database
+
+See [DATABASE_RECOVERY.md](DATABASE_RECOVERY.md) for detailed recovery procedures.
 
 ## 📝 License
 

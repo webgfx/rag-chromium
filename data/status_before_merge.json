@@ -1,0 +1,215 @@
+{
+  "timestamp": "2025-10-20T13:53:35.506243",
+  "progress": {
+    "commits_processed": 27345,
+    "batches_completed": 115,
+    "documents_created": 27352,
+    "embeddings_generated": 27352,
+    "first_commit_sha": "97294babe6b3b587aaa215a5d7605c7327286092",
+    "first_commit_date": "2024-03-06T23:55:53",
+    "first_commit_message": "Fix FlatBuffer TabState incognito bug\n\nWhether a Tab is regular/incognito is not encoded in TabState",
+    "last_commit_sha": "d210c6e2d114429dabbdfec619b66a92c141fa3e",
+    "last_commit_date": "2025-09-25T18:03:00",
+    "last_commit_message": "Roll DevTools Frontend from 98d3f8fe0343 to ebba7796e59e (3 revisions)\n\nhttps://chromium.googlesourc",
+    "commits_processed_before_session": 19745,
+    "last_batch_time": 10.661944150924683,
+    "session_start": 1760939213.0154793,
+    "start_date": "2025-08-01T00:00:00",
+    "end_date": null,
+    "max_commits": null
+  },
+  "database": {
+    "total_documents": 22253,
+    "collection_name": "chromium_complete",
+    "is_healthy": true
+  },
+  "processed_ranges": [
+    {
+      "range_id": 1,
+      "status": "completed",
+      "start_commit": {
+        "sha": "94df9473f72d045b371188ff90fa8de1900a8b16",
+        "date": "2023-06-01T00:01:04",
+        "message": "",
+        "author": "chromium-internal-autoroll"
+      },
+      "end_commit": {
+        "sha": "b2e0e4b4146fbe3b69a1a0be155c6438a473d363",
+        "date": "2023-06-02T06:15:07",
+        "message": "",
+        "author": "v8-ci-autoroll-builder"
+      },
+      "commits_count": 899,
+      "date_range": "2023-06-01 to 2023-06-02"
+    },
+    {
+      "range_id": 2,
+      "status": "completed",
+      "start_commit": {
+        "sha": "0f8ad29633cd233fd06f1ab6052e632c0317efb0",
+        "date": "2024-01-01T00:00:44",
+        "message": "",
+        "author": "Chrome Release Bot (LUCI)"
+      },
+      "end_commit": {
+        "sha": "e5c4ead55302b4889b1c5102edf8a4af98683f21",
+        "date": "2024-01-07T23:42:51",
+        "message": "",
+        "author": "chromium-autoroll"
+      },
+      "commits_count": 2173,
+      "date_range": "2024-01-01 to 2024-01-07"
+    },
+    {
+      "range_id": 3,
+      "status": "completed",
+      "start_commit": {
+        "sha": "11eeb45de857906fc8c963fd4532cf4767a12589",
+        "date": "2024-04-01T00:51:08",
+        "message": "",
+        "author": "chromium-internal-autoroll"
+      },
+      "end_commit": {
+        "sha": "a950a08a4f5ce564f6b63c9dcfada036f8aa7f9b",
+        "date": "2024-04-02T23:59:30",
+        "message": "",
+        "author": "Nektarios Paisios"
+      },
+      "commits_count": 608,
+      "date_range": "2024-04-01 to 2024-04-02"
+    },
+    {
+      "range_id": 4,
+      "status": "completed",
+      "start_commit": {
+        "sha": "dcff0ecc0c57400a19a321d1ceea635c459f48ac",
+        "date": "2024-07-01T00:15:32",
+        "message": "",
+        "author": "chromium-internal-autoroll"
+      },
+      "end_commit": {
+        "sha": "92b06773442f4d92a1b2b1be7bc25deb7e7e12f5",
+        "date": "2024-07-02T02:11:19",
+        "message": "",
+        "author": "chromium-internal-autoroll"
+      },
+      "commits_count": 312,
+      "date_range": "2024-07-01 to 2024-07-02"
+    },
+    {
+      "range_id": 5,
+      "status": "completed",
+      "start_commit": {
+        "sha": "54896f7e7ed4f90acf9a8331a1e3e8b69b77669d",
+        "date": "2024-10-01T00:01:56",
+        "message": "",
+        "author": "weidongliu"
+      },
+      "end_commit": {
+        "sha": "493026526b46ae45bbcda5b8ed93ef1e1f47d250",
+        "date": "2024-10-07T23:59:49",
+        "message": "",
+        "author": "Adem Derinel"
+      },
+      "commits_count": 3138,
+      "date_range": "2024-10-01 to 2024-10-07"
+    },
+    {
+      "range_id": 6,
+      "status": "completed",
+      "start_commit": {
+        "sha": "366ec58cb7a742b6fc1489392554b3223d915a3e",
+        "date": "2024-12-01T00:00:55",
+        "message": "",
+        "author": "Chrome Release Bot (LUCI)"
+      },
+      "end_commit": {
+        "sha": "1b3b66deaaccc8495d089fe07bb8aa43c253ae4b",
+        "date": "2024-12-02T23:54:34",
+        "message": "",
+        "author": "Edman Anjos"
+      },
+      "commits_count": 339,
+      "date_range": "2024-12-01 to 2024-12-02"
+    },
+    {
+      "range_id": 7,
+      "status": "completed",
+      "start_commit": {
+        "sha": "f1b83d6445eb71260b30bd6bcf4dcd2b975efb03",
+        "date": "2025-10-01T00:00:34",
+        "message": "",
+        "author": "Charlie Harrison"
+      },
+      "end_commit": {
+        "sha": "a299d56c57afb3a47c4e36fcb0855d34914c069b",
+        "date": "2025-10-19T23:26:44",
+        "message": "",
+        "author": "David Benjamin"
+      },
+      "commits_count": 8391,
+      "date_range": "2025-10-01 to 2025-10-19"
+    },
+    {
+      "range_id": 8,
+      "status": "processing",
+      "start_commit": {
+        "sha": "97294babe6b3b587aaa215a5d7605c7327286092",
+        "date": "2024-03-06T23:55:53",
+        "message": "Fix FlatBuffer TabState incognito bug\n\nWhether a Tab is regular/incognito is not encoded in TabState",
+        "author": ""
+      },
+      "end_commit": {
+        "sha": "d210c6e2d114429dabbdfec619b66a92c141fa3e",
+        "date": "2025-09-25T18:03:00",
+        "message": "Roll DevTools Frontend from 98d3f8fe0343 to ebba7796e59e (3 revisions)\n\nhttps://chromium.googlesourc",
+        "author": ""
+      },
+      "commits_count": 7600,
+      "date_range": "2024-03-06 to 2024-03-06"
+    }
+  ],
+  "current_range": {
+    "status": "processing",
+    "start_commit": {
+      "sha": "97294babe6b3b587aaa215a5d7605c7327286092",
+      "date": "2024-03-06T23:55:53",
+      "message": "Fix FlatBuffer TabState incognito bug\n\nWhether a Tab is regular/incognito is not encoded in TabState"
+    },
+    "end_commit": {
+      "sha": "d210c6e2d114429dabbdfec619b66a92c141fa3e",
+      "date": "2025-09-25T18:03:00",
+      "message": "Roll DevTools Frontend from 98d3f8fe0343 to ebba7796e59e (3 revisions)\n\nhttps://chromium.googlesourc"
+    },
+    "commits_count": 27345,
+    "batches_completed": 115,
+    "documents_created": 27352
+  },
+  "system": {
+    "cpu_percent": 7.6,
+    "memory_percent": 34.8,
+    "memory_used_gb": 21.445743560791016,
+    "disk_usage_percent": 1.8
+  },
+  "stats": {
+    "batches_completed": 115,
+    "commits_processed": 27345,
+    "documents_created": 27352,
+    "embeddings_generated": 27352,
+    "errors": 0,
+    "avg_processing_rate": 68.01010960877488,
+    "estimated_completion": "2025-10-20T13:55:59.012394",
+    "first_commit_sha": "97294babe6b3b587aaa215a5d7605c7327286092",
+    "first_commit_date": "2024-03-06T23:55:53",
+    "first_commit_message": "Fix FlatBuffer TabState incognito bug\n\nWhether a Tab is regular/incognito is not encoded in TabState",
+    "last_commit_sha": "d210c6e2d114429dabbdfec619b66a92c141fa3e",
+    "last_commit_date": "2025-09-25T18:03:00",
+    "last_commit_message": "Roll DevTools Frontend from 98d3f8fe0343 to ebba7796e59e (3 revisions)\n\nhttps://chromium.googlesourc",
+    "commits_processed_before_session": 19745,
+    "last_batch_time": 10.661944150924683,
+    "session_start": 1760939213.0154793,
+    "start_date": "2025-08-01T00:00:00",
+    "end_date": null,
+    "max_commits": null
+  }
+}

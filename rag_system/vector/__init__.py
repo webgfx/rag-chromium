@@ -4,7 +4,8 @@ Vector database module for advanced RAG system.
 Provides high-performance vector storage, indexing, and retrieval.
 """
 
-from .database import VectorDatabase, VectorDocument, SearchResult
+# Switch to Qdrant for better scalability and performance
+from .qdrant_database import VectorDatabase, VectorDocument, SearchResult
 
 __all__ = [
     'VectorDatabase',

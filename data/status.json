@@ -1,0 +1,118 @@
+{
+  "progress": {
+    "commits_processed": 244403,
+    "documents_created": 244403,
+    "embeddings_generated": 244403,
+    "start_index": 1500000,
+    "end_index": 1700000,
+    "commit_index_current": 1500000,
+    "commit_file": "data\\massive_cache\\commits_to_process.txt",
+    "start_commit_sha": "4570b26b80e4b9f496c4e4d082b3af33144ca3e1",
+    "start_commit_date": "2009-08-24T20:37:21+00:00",
+    "start_commit_message": "linux/mac: implement NPN_ThreadAsyncCall\n\nReview URL: http://codereview.chromium.org/174296\n\n\ngit-sv",
+    "start_commit_author": "piman@chromium.org",
+    "start_commit_index": 1502999,
+    "end_commit_sha": "56b6d7f955995fe653319e0f82d29ef24db0ece7",
+    "end_commit_date": "2012-07-23T02:04:12-07:00",
+    "end_commit_message": "SVN changes up to revision 147837",
+    "end_commit_author": "gitdeps",
+    "end_commit_index": 1683684,
+    "last_batch_time": 249.98666286468506,
+    "session_start": 1760965020.091528,
+    "commits_processed_before_session": 68403
+  },
+  "processed_ranges": [
+    {
+      "id": 1,
+      "start": {
+        "index": 1374939,
+        "sha": "94df9473f72d045b371188ff90fa8de1900a8b16",
+        "date": "2023-06-01T00:01:04"
+      },
+      "end": {
+        "index": 1375836,
+        "sha": "b2e0e4b4146fbe3b69a1a0be155c6438a473d363",
+        "date": "2023-06-02T06:15:07"
+      }
+    },
+    {
+      "id": 2,
+      "start": {
+        "index": 1465346,
+        "sha": "0f8ad29633cd233fd06f1ab6052e632c0317efb0",
+        "date": "2024-01-01T00:00:44"
+      },
+      "end": {
+        "index": 1467518,
+        "sha": "e5c4ead55302b4889b1c5102edf8a4af98683f21",
+        "date": "2024-01-07T23:42:51"
+      }
+    },
+    {
+      "id": 3,
+      "start": {
+        "index": 1490682,
+        "sha": "3ba4125a0cb17d37b367310b0ed2c1c82674795f",
+        "date": "2024-03-01T00:00:43"
+      },
+      "end": {
+        "index": 1492670,
+        "sha": "97294babe6b3b587aaa215a5d7605c7327286092",
+        "date": "2024-03-06T23:55:53"
+      }
+    },
+    {
+      "id": 4,
+      "start": {
+        "index": 1500000,
+        "sha": "94df9473f72d045b371188ff90fa8de1900a8b16",
+        "date": "2023-06-01T00:01:04"
+      },
+      "end": {
+        "index": 1755139,
+        "sha": "334462de7ce011eda6cb75c63be0ff09df324bad",
+        "date": "2025-10-18T00:11:30"
+      }
+    }
+  ],
+  "current_range": {
+    "status": "processing",
+    "start": {
+      "index": 1502999,
+      "sha": "4570b26b80e4b9f496c4e4d082b3af33144ca3e1",
+      "date": "2009-08-24T20:37:21+00:00"
+    },
+    "end": {
+      "index": 1683684,
+      "sha": "56b6d7f955995fe653319e0f82d29ef24db0ece7",
+      "date": "2012-07-23T02:04:12-07:00"
+    },
+    "target_index": 1700000
+  },
+  "stats": {
+    "commits_processed": 244403,
+    "documents_created": 244403,
+    "embeddings_generated": 244403,
+    "errors": 0,
+    "avg_processing_rate": 6.3030947216697255,
+    "estimated_completion": "2025-10-23T01:50:02.761157",
+    "batches_completed": 0,
+    "start_index": 1500000,
+    "end_index": 1700000,
+    "commit_index_current": 1500000,
+    "commit_file": "data\\massive_cache\\commits_to_process.txt",
+    "start_commit_sha": "4570b26b80e4b9f496c4e4d082b3af33144ca3e1",
+    "start_commit_date": "2009-08-24T20:37:21+00:00",
+    "start_commit_message": "linux/mac: implement NPN_ThreadAsyncCall\n\nReview URL: http://codereview.chromium.org/174296\n\n\ngit-sv",
+    "start_commit_author": "piman@chromium.org",
+    "start_commit_index": 1502999,
+    "end_commit_sha": "56b6d7f955995fe653319e0f82d29ef24db0ece7",
+    "end_commit_date": "2012-07-23T02:04:12-07:00",
+    "end_commit_message": "SVN changes up to revision 147837",
+    "end_commit_author": "gitdeps",
+    "end_commit_index": 1683684,
+    "last_batch_time": 249.98666286468506,
+    "session_start": 1760965020.091528,
+    "commits_processed_before_session": 68403
+  }
+}

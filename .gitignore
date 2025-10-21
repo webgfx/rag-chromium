@@ -49,6 +49,7 @@ data/embeddings/
 data/processed/
 data/vectorstore/
 data/massive_cache/
+!data/massive_cache/commit_ranges.json
 
 # Model cache (Hugging Face)
 models/

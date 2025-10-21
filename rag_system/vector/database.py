@@ -128,7 +128,7 @@ class VectorDatabase:
     def add_documents(
         self,
         documents: List[VectorDocument],
-        batch_size: int = 1000
+        batch_size: int = 50
     ) -> int:
         """
         Add documents to the vector database in batches.

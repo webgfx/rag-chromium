@@ -180,7 +180,9 @@ class EmbeddingModelManager:
                 return model
                 
             except Exception as e:
+                import traceback
                 self.logger.error(f"Failed to load model {model_name}: {e}")
+                self.logger.error(f"Full traceback:\n{traceback.format_exc()}")
                 raise
     
     def _load_sentence_transformer(self, config: ModelConfig, **kwargs) -> SentenceTransformer:
